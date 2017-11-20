@@ -1,0 +1,196 @@
+using namespace std;
+#include<iostream>
+#include<string>
+#include<stdlib.h>
+#define maxlen 200
+class bigzhengshu {
+	int a[maxlen ];
+	char b[ maxlen ];
+	int len;
+	
+	
+public:void set()
+{
+	for (int i = 0; i < maxlen; i++)
+		a[i] = 0;
+	cin >> b;
+	len = strlen(b);
+	cout << "大整数是:";
+	int j = len;
+	for (int i = 0; i < len; i++)
+	{
+		a[j-1] = b[i] - '0';
+		j--;
+	}
+	for (int i = 0; i < len;i++)
+		cout << a[i];
+	cout << "\n"<<len<<"\n";
+}
+public:void jia(bigzhengshu t) 
+{	
+	int c[maxlen + 1];
+	for (int i = len; i >= 0; i--)
+	{
+		c[i] = 0;
+	}
+	if (len >= t.len)
+		for (int i = 0; i <= len; i++)
+		{
+			c[len-i] += a[i] + t.a[i];
+			if (c[len-i] >= 10)
+			{
+				c[len-i] -= 10;
+				c[len-1-i] += 1;
+			}
+		}
+	else
+		for (int i = 0; i <= t.len; i++)
+		{
+			c[t.len-i] += a[i] + t.a[i];
+			if (c[t.len - i] >= 10)
+			{
+				c[t.len - i] -= 10;
+				c[t.len - i-1] += 1;
+			}
+		}
+	if (c[0] == 0)
+		for (int i = 1; i <= len; i++)
+			cout << c[i];
+	else
+		for (int i = 0; i <= len; i++)
+			cout << c[i];
+	cout << "\n";
+}
+public:void jian(bigzhengshu t) 
+{
+	int c[maxlen];
+	if (len > t.len)
+	{
+		for (int i = 0; i < len; i++)
+			c[i] = 0;
+		for (int i = 0; i < len; i++)
+		{
+			c[len - i - 1] += a[i] - t.a[i];
+			if (c[len - i - 1] < 0)
+			{
+				c[len - 1 - i] = 10 + c[len - 1 - i];
+				a[i+1] -= 1;
+			}
+		}
+		for (int i = 0; i < len; i++)
+		{
+		    if (c[i]!=0)
+			{
+				for (int j = i; j < len; j++)
+					cout << c[j];
+				cout << "\n";
+				break;
+			}
+        }
+	}
+	else if (len < t.len)
+	{
+		for (int i = 0; i < t.len; i++)
+			c[i] = 0;
+		for (int i = 0; i < t.len; i++)
+		{
+			c[t.len - i - 1] += t.a[i] - a[i];
+			if (c[t.len - i - 1] < 0)
+			{
+				c[t.len - 1 - i] = 10 + c[len - 1 - i];
+				t.a[i+1] -= 1;
+			}
+		}
+		for (int i = 0; i < t.len; i++)
+		{
+			if (c[i] != 0)
+			{
+				for (int j = i; j <t. len; j++)
+					cout << c[j];
+				cout << "\n";
+				break;
+			}
+		}
+	}
+	else
+	{	
+		int sum = 0;
+		for (int i = 0; i < len; i++)
+		{
+			if (a[len - 1 - i]>t.a[len - 1 - i])
+			{
+				for (int j = 0; j < len; j++)
+					c[j] = 0;
+				for (int j = 0; j < len; j++)
+				{
+					c[len - j - 1] += a[j] - t.a[j];
+					if (c[len - j - 1] < 0)
+					{
+						c[len - 1 - j] = 10 + c[len - 1 - j];
+						a[j+1] -= 1;
+					}
+				}
+				for (int j = 0; j < len;j++)
+				{
+					if (c[j] != 0)
+					{
+						for (int k = i; k < len; k++)
+							cout << c[k];
+						cout << "\n";
+						break;
+					}
+				}
+				sum++;
+				break;
+			}
+			else if (a[len - 1 - i] < t.a[len - 1 - i])
+			{
+				for (int j = 0; j < len; j++)
+					c[j] = 0;
+				for (int j = 0; j < len; j++)
+				{
+					c[len - j - 1] += t.a[j] - a[j];
+					if (c[len - j - 1] < 0)
+					{
+						c[len - 1 - j] = 10 + c[len - 1 - j];
+						t.a[j + 1] -= 1;
+					}
+				}
+				for (int j = 0; j < len; j++)
+				{
+					if (c[j] != 0)
+					{
+						cout << "-";
+						for (int k = i; k < len; k++)
+							cout << c[k];
+						cout << "\n";
+
+						break;
+					}
+				}
+				sum++;
+				break;
+			}
+			else if (a[len - 1 - i] == t.a[len - 1 - i] && sum == 0)
+			{
+				cout << 0 << "\n";
+				break;
+			}
+		}
+	}
+}
+};
+void main()
+{
+	bigzhengshu w;
+	w.set();
+	bigzhengshu m;
+	m.set();
+	w.jian(m);
+	
+	
+	
+
+	system("pause");
+}
+
