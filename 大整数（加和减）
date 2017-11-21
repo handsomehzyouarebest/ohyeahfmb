@@ -9,7 +9,7 @@ class bigzhengshu {
 	int len;
 	
 	
-public:void set()
+public:void set()                           //输入
 {
 	for (int i = 0; i < maxlen; i++)
 		a[i] = 0;
@@ -22,11 +22,11 @@ public:void set()
 		a[j-1] = b[i] - '0';
 		j--;
 	}
-	for (int i = 0; i < len;i++)
+	for (int i = len-1; i >=0;i--)
 		cout << a[i];
-	cout << "\n"<<len<<"\n";
+	cout << "\n"<<"长度是："<<len<<"\n";
 }
-public:void jia(bigzhengshu t) 
+public:void jia(bigzhengshu t)                //加法
 {	
 	int c[maxlen + 1];
 	for (int i = len; i >= 0; i--)
@@ -61,10 +61,11 @@ public:void jia(bigzhengshu t)
 			cout << c[i];
 	cout << "\n";
 }
-public:void jian(bigzhengshu t) 
+
+public:void jian(bigzhengshu t)             //减法
 {
 	int c[maxlen];
-	if (len > t.len)
+	if (len > t.len)                        //判断1
 	{
 		for (int i = 0; i < len; i++)
 			c[i] = 0;
@@ -88,7 +89,7 @@ public:void jian(bigzhengshu t)
 			}
         }
 	}
-	else if (len < t.len)
+	else if (len < t.len)                                //判断2
 	{
 		for (int i = 0; i < t.len; i++)
 			c[i] = 0;
@@ -97,7 +98,7 @@ public:void jian(bigzhengshu t)
 			c[t.len - i - 1] += t.a[i] - a[i];
 			if (c[t.len - i - 1] < 0)
 			{
-				c[t.len - 1 - i] = 10 + c[len - 1 - i];
+				c[t.len - 1 - i] = 10 + c[t.len - 1 - i];
 				t.a[i+1] -= 1;
 			}
 		}
@@ -105,6 +106,7 @@ public:void jian(bigzhengshu t)
 		{
 			if (c[i] != 0)
 			{
+				cout << "-";
 				for (int j = i; j <t. len; j++)
 					cout << c[j];
 				cout << "\n";
@@ -112,12 +114,12 @@ public:void jian(bigzhengshu t)
 			}
 		}
 	}
-	else
+	else                                                //判断3
 	{	
 		int sum = 0;
 		for (int i = 0; i < len; i++)
 		{
-			if (a[len - 1 - i]>t.a[len - 1 - i])
+			if (a[len - 1 - i]>t.a[len - 1 - i])       //判断3.1
 			{
 				for (int j = 0; j < len; j++)
 					c[j] = 0;
@@ -140,10 +142,10 @@ public:void jian(bigzhengshu t)
 						break;
 					}
 				}
-				sum++;
+				
 				break;
 			}
-			else if (a[len - 1 - i] < t.a[len - 1 - i])
+			else if (a[len - 1 - i] < t.a[len - 1 - i])    //3.2
 			{
 				for (int j = 0; j < len; j++)
 					c[j] = 0;
@@ -168,13 +170,14 @@ public:void jian(bigzhengshu t)
 						break;
 					}
 				}
-				sum++;
+				
 				break;
 			}
-			else if (a[len - 1 - i] == t.a[len - 1 - i] && sum == 0)
+			else if (a[len - 1-i] == t.a[len - 1-i])  //判断相同
 			{
-				cout << 0 << "\n";
-				break;
+				sum++;
+				if (sum == len)
+					cout << 0 << "\n";
 			}
 		}
 	}
